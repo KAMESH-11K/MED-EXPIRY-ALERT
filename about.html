@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Fill Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"] {
+            width: 250px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>MEDICINE FORM</h2>
+<h2>Patient Details</h2>
+<form>
+    <label for="patientName">Patient Name:</label>
+    <input type="text" id="patientName" name="patientName" required><br><br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required><br><br>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" id="phoneNumber" name="phoneNumber" required pattern="[0-9]{10}"><br><br>
+</form>
+
+<h2>Medicine Information</h2>
+<table id="medicineTable">
+    <tr>
+        <th>Medicine Name</th>
+        <th>Amount</th>
+        <th>Manufacture Date</th>
+        <th>Expiry Date</th>
+        <th>Actions</th>
+    </tr>
+    <tr>
+        <td><input type="text" name="medicineName1" required></td>
+        <td><input type="text" name="amount1" required></td>
+        <td><input type="date" name="manufactureDate1" required></td>
+        <td><input type="date" name="expiryDate1" required></td>
+        <td><button type="button" onclick="removeRow(this)">Remove</button></td>
+    </tr>
+</table>
+
+<!-- Add and Remove buttons -->
+<div class="btn-container">
+    <button type="button" class="btn" onclick="addRow()">Add Row</button>
+    <button type="submit" class="btn">Submit</button>
+    <button type="button" class="btn btn-print" onclick="window.print()">Print</button>
+</div>
+
+<script>
+    // JavaScript code for adding and removing rows
+    function addRow() {
+        const table = document.getElementById("medicineTable");
+        const newRow = table.insertRow(table.rows.length - 1);
+        const cells = [];
+        for (let i = 0; i < 5; i++) {
+            cells.push(newRow.insertCell(i));
+        }
+        cells[0].innerHTML = `<input type="text" name="medicineName${table.rows.length - 1}" required>`;
+        cells[1].innerHTML = `<input type="text" name="amount${table.rows.length - 1}" required>`;
+        cells[2].innerHTML = `<input type="date" name="manufactureDate${table.rows.length - 1}" required>`;
+        cells[3].innerHTML = `<input type="date" name="expiryDate${table.rows.length - 1}" required>`;
+        cells[4].innerHTML = '<button type="button" onclick="removeRow(this)">Remove</button>';
+    }
+
+    function removeRow(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+</script>
+</div>
+</body>
+</html>
